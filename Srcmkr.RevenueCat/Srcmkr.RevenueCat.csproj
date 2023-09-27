@@ -1,0 +1,47 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>RevenueCat C# SDK</Title>
+        <Description>Inofficial C# SDK for RevenueCat</Description>
+        <Copyright>2023</Copyright>
+        <PackageProjectUrl>https://github.com/srcmkr/revenuecat</PackageProjectUrl>
+        <PackageIcon>rcsharp.png</PackageIcon>
+        <RepositoryUrl>https://github.com/srcmkr/revenuecat</RepositoryUrl>
+        <RepositoryType>GitHub</RepositoryType>
+        <PackageTags>revenuecat sdk subscription saas app</PackageTags>
+        <Deterministic>true</Deterministic>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <RepositoryType>git</RepositoryType>
+        <RepositoryUrl>https://github.com/srcmkr/revenuecat</RepositoryUrl>
+        <RepositoryCommit>$(GITHUB_SHA)</RepositoryCommit>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <DebugType>portable</DebugType>
+        <IncludeSymbols>true</IncludeSymbols>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <Authors>srcmkr</Authors>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="rcsharp.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="README.md" Pack="true" PackagePath="" />
+    </ItemGroup>
+
+</Project>

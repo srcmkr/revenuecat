@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Srcmkr.RevenueCat.Demo", "Srcmkr.RevenueCat.Demo\Srcmkr.RevenueCat.Demo.csproj", "{DC68C74E-AF2F-4243-AFB6-CD527B9DFDC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Srcmkr.RevenueCat", "Srcmkr.RevenueCat\Srcmkr.RevenueCat.csproj", "{871C0C39-6E2C-454B-A343-1AF13E60A284}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DC68C74E-AF2F-4243-AFB6-CD527B9DFDC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC68C74E-AF2F-4243-AFB6-CD527B9DFDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC68C74E-AF2F-4243-AFB6-CD527B9DFDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC68C74E-AF2F-4243-AFB6-CD527B9DFDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{871C0C39-6E2C-454B-A343-1AF13E60A284}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{871C0C39-6E2C-454B-A343-1AF13E60A284}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{871C0C39-6E2C-454B-A343-1AF13E60A284}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{871C0C39-6E2C-454B-A343-1AF13E60A284}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

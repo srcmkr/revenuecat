@@ -1,0 +1,71 @@
+name: Action to build and publish the project as a nuget package to github package registry
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      Version: ${{ steps.gitversion.outputs.SemVer }}
+      CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 #fetch-depth is needed for GitVersion
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.9.7
+        with:
+          versionSpec: 5.x
+      - name: Determine Version
+        uses: gittools/actions/gitversion/execute@v0.9.7
+        id: gitversion # step id used as reference for output values
+      - name: Display GitVersion outputs
+        run: |
+          echo "Version: ${{ steps.gitversion.outputs.SemVer }}"
+          echo "CommitsSinceVersionSource: ${{ steps.gitversion.outputs.CommitsSinceVersionSource }}"
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 7.x
+      - name: Build Nuget package
+        run: dotnet build ./Srcmkr.RevenueCat/Srcmkr.RevenueCat.csproj -c Release
+      - name: Pack NuGet package
+        run: dotnet pack ./Srcmkr.RevenueCat/Srcmkr.RevenueCat.csproj -p:Version='${{ steps.gitversion.outputs.SemVer }}' -c Release
+      - name: Upload NuGet package to GitHub
+        uses: actions/upload-artifact@v2
+        with:
+          name: nugetPackage
+          path: ./Srcmkr.RevenueCat/bin/Release/*.nupkg
+  
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: build
+    if: github.ref == 'refs/heads/master' # only run job if on the master branch   
+
+    steps:
+      # Download NuGet package artifact
+      - name: Download nuget package artifact
+        uses: actions/download-artifact@v1.0.0
+        with:
+          name: nugetPackage
+      
+      # Push package to NuGet.org
+      - name: Push package to NuGet.org
+        if: needs.build.outputs.CommitsSinceVersionSource > 0
+        run: dotnet nuget push ./nugetPackage/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_APIKEY }}  --source "https://api.nuget.org/v3/index.json"
+      
+      # Create Release
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ needs.build.outputs.Version }}
+          name: Release ${{ needs.build.outputs.Version }}
+          artifacts: "/home/runner/work/revenuecat/revenuecat/nugetPackage/*.nupkg"
+          token: ${{ secrets.GITHUB_TOKEN }}
