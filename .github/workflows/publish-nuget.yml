@@ -65,7 +65,7 @@ jobs:
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ needs.build.outputs.Version }}
-          name: Release ${{ needs.build.outputs.Version }}
+          tag: ${{ steps.gitversion.outputs.SemVer }}
+          name: Release ${{ steps.gitversion.outputs.SemVer }}
           artifacts: "/home/runner/work/revenuecat/revenuecat/nugetPackage/*.nupkg"
           token: ${{ secrets.GITHUB_TOKEN }}
